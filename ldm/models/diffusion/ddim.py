@@ -59,6 +59,7 @@ class DDIMSampler(object):
                normals_sequence=None,
                img_callback=None,
                quantize_x0=False,
+               discretize="uniform",
                eta=0.,
                mask=None,
                x0=None,
@@ -92,7 +93,7 @@ class DDIMSampler(object):
                 if conditioning.shape[0] != batch_size:
                     print(f"Warning: Got {conditioning.shape[0]} conditionings but batch-size is {batch_size}")
 
-        self.make_schedule(ddim_num_steps=S, ddim_eta=eta, verbose=verbose)
+        self.make_schedule(ddim_num_steps=S, ddim_discretize=discretize, ddim_eta=eta, verbose=verbose)
         # sampling
         C, H, W = shape
         size = (batch_size, C, H, W)
@@ -197,8 +198,8 @@ class DDIMSampler(object):
                             c[k][i]]) for i in range(len(c[k]))]
                     else:
                         c_in[k] = torch.cat([
-                                unconditional_conditioning[k],
-                                c[k]])
+                            unconditional_conditioning[k],
+                            c[k]])
             elif isinstance(c, list):
                 c_in = list()
                 assert isinstance(unconditional_conditioning, list)
