@@ -19,7 +19,7 @@ torch.set_grad_enabled(False)
 def put_watermark(img, wm_encoder = None):
     if wm_encoder is not None:
         img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        img = wm_encoder.encode(img, 'dwtDct')
+        img = wm_encoder.encode(img, "dwtDct")
         img = Image.fromarray(img[:, :, ::-1])
     return img
 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
         "outscale": 4,                          #Во сколько раз увеличивать изображение (сейчас не работает)
         "num_samples": 2,                       #Сколько изображений возвращать (от 1 до 4)
         "eta": 0.0,                             #значения от 0.0 до 1.0, η = 0.0 соответствует детерминированной выборке
-        "discretize": "uniform",                #Дискретизатор обработчика (доступны "uniform" и "quad"), только при eta > 0.0
+        "discretize": "uniform",                #Дискретизатор обработчика (доступны "uniform" и "quad"). Эте эксперементальный системный параметр, он, как правило, портит картинку
         "scale": 10.0,                          #От 0.1 до 30.0
         "ckpt": "x4-upscaler-ema.safetensors",  #Выбор весов модели ("x4-upscaler-ema.safetensors")   
         "add_watermark": False,                 #Добавлять невидимую вотермарку
