@@ -1,0 +1,3 @@
+ldm_stablediffusion @ git+https://git@github.com/StableDraw/ldm.git
+xformers
+triton
